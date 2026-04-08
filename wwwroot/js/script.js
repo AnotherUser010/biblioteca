@@ -27,7 +27,7 @@ function registroUsuarios(){
 	formData.append("nombre", name.val());
 	formData.append("email", email.val());
 	formData.append("pwd", password.val());
-	$.ajax({url: "/sistema/usuarios.php",
+	$.ajax({url: "usuarios.php",
 		data: formData,
 		processData: false,
 		contentType: false,
@@ -53,7 +53,7 @@ function login(){
 	
 	formData.append("email", email.val());
 	formData.append("pwd", password.val());
-	$.ajax({url: "/sistema/login.php",
+	$.ajax({url: "login.php",
 		data: formData,
 		processData: false,
 		contentType: false,
