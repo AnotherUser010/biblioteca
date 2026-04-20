@@ -71,3 +71,58 @@ function login(){
 
 }
 
+function guardarAutor(){
+  let nombre = $("#nombre").val();
+
+  let formData = new FormData();
+  formData.append("nombre", nombre);
+
+  $.ajax({
+    url: "autor.php",
+    data: formData,
+    processData: false,
+    contentType: false,
+    type: "POST",
+    success: function(res){
+      alert(res);
+    }
+  });
+}
+
+function guardarLibro(){
+  let formData = new FormData();
+  formData.append("titulo", $("#titulo").val());
+  formData.append("autor_id", $("#autor_id").val());
+
+  $.ajax({
+    url: "libro.php",
+    type: "POST",
+    data: formData,
+    processData: false,
+    contentType: false,
+    success: function(res){
+      alert(res);
+    }
+  });
+}
+
+function guardarPrestamo(){
+  let formData = new FormData();
+  formData.append("id_usuario", $("#id_usuario").val());
+  formData.append("id_libro", $("#id_libro").val());
+
+  $.ajax({
+    url: "prestamo.php",
+    type: "POST",
+    data: formData,
+    processData: false,
+    contentType: false,
+    success: function(res){
+      alert(res);
+    }
+  });
+}
+
+function cargar(pagina){
+  $("#article").load(pagina);
+}
