@@ -3,7 +3,7 @@
 // db.php
 
 function conectarDB() {
-    $host = "localhost";
+    $host = "localhost"; // localhost
     $db   = "salamilla_db";
     $user = "salamilla";
     $pass = "12345678";

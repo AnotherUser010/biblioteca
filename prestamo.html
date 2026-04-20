@@ -1,3 +1,50 @@
-<input type="number" id="id_usuario" placeholder="Usuario">
-<input type="number" id="id_libro" placeholder="Libro">
+<select id="id_usuario"></select>
+<select id="id_libro"></select>
+
 <button onclick="guardarPrestamo()">Prestar</button>
+
+<script>
+
+// usuarios
+fetch('listar_usuarios.php')
+  .then(res => res.json())
+  .then(data => {
+    const select = document.getElementById('id_usuario');
+
+    data.forEach(u => {
+      const option = document.createElement('option');
+      option.value = u.id_usuario;
+      option.textContent = u.nombre;
+      select.appendChild(option);
+    });
+  });
+
+// libros
+fetch('listar_libros.php')
+  .then(res => res.json())
+  .then(data => {
+    const select = document.getElementById('id_libro');
+
+    data.forEach(l => {
+      const option = document.createElement('option');
+      option.value = l.id_libro;
+      option.textContent = l.titulo;
+      select.appendChild(option);
+    });
+  });
+
+// guardar préstamo
+function guardarPrestamo() {
+    const id_usuario = document.getElementById('id_usuario').value;
+    const id_libro = document.getElementById('id_libro').value;
+
+    fetch('prestamo.php', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        body: `id_usuario=${id_usuario}&id_libro=${id_libro}`
+    })
+    .then(res => res.text())
+    .then(data => alert(data));
+}
+
+</script>

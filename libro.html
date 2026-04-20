@@ -1,3 +1,37 @@
 <input type="text" id="titulo" placeholder="Título">
-<input type="number" id="autor_id" placeholder="ID Autor">
+<select id="autor_id"></select>
 <button onclick="guardarLibro()">Guardar</button>
+
+<script>
+// cargar autores en el select
+fetch('listar_autores.php')
+  .then(res => res.json())
+  .then(data => {
+    const select = document.getElementById('autor_id');
+
+    data.forEach(autor => {
+      const option = document.createElement('option');
+      option.value = autor.id_autor;      // lo que se manda al PHP
+      option.textContent = autor.nombre;  // lo que ve el usuario
+      select.appendChild(option);
+    });
+  });
+
+// enviar libro
+function guardarLibro() {
+    const titulo = document.getElementById('titulo').value;
+    const autor_id = document.getElementById('autor_id').value;
+
+    fetch('libro.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: `titulo=${titulo}&autor_id=${autor_id}`
+    })
+    .then(res => res.text())
+    .then(data => {
+        alert(data);
+    });
+}
+</script>
