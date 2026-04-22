@@ -1,3 +1,5 @@
+$.ajaxSetup({ cache: false});
+
 $(document).ready(function() {
     /* 
 	* Obtener referencia de los elementos por la clase llamada nav-link y agregar el
@@ -124,5 +126,18 @@ function guardarPrestamo(){
 }
 
 function cargar(pagina){
+  $("#article").load(pagina, function(response, status, xhr) {
+
+    $("#article script").each(function() {
+      eval(this.innerText);
+    });
+
+  });
+}
+
+
+/*
+function cargar(pagina){
   $("#article").load(pagina);
 }
+*/

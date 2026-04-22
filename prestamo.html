@@ -1,50 +1,107 @@
-<select id="id_usuario"></select>
-<select id="id_libro"></select>
+<label class="form-label">Usuario</label>
+<select id="id_usuario" class="form-select mb-3"></select>
+<label class="form-label">Libro</label>
+<select id="id_libro" class="form-select mb-3"></select>
 
-<button onclick="guardarPrestamo()">Prestar</button>
+<button onclick="guardarPrestamo()" class="btn btn-primary mt-2">Prestar</button><br><br>
+
+<h3>Historial de préstamos</h3>
+<table class="table table-striped table-hover table-bordered mt-3">
+  <thead class="table-dark">
+    <tr>
+      <th>Usuario</th>
+      <th>Libro</th>
+      <th>Fecha</th>
+    </tr>
+  </thead>
+  <tbody id="historial"></tbody>
+</table>
+
+<!--
+<style>
+  td,
+  th {
+    padding: 10px;
+    /*  aumenta espacio interno */
+  }
+
+  table {
+    border-collapse: separate;
+    border-spacing: 10px;
+    /*  espacio entre columnas y filas */
+  }
+</style>
+-->
 
 <script>
 
-// usuarios
-fetch('listar_usuarios.php')
-  .then(res => res.json())
-  .then(data => {
-    const select = document.getElementById('id_usuario');
+  // usuarios
+  fetch('listar_usuarios.php')
+    .then(res => res.json())
+    .then(data => {
+      const select = document.getElementById('id_usuario');
 
-    data.forEach(u => {
-      const option = document.createElement('option');
-      option.value = u.id_usuario;
-      option.textContent = u.nombre;
-      select.appendChild(option);
+      data.forEach(u => {
+        const option = document.createElement('option');
+        option.value = u.id_usuario;
+        option.textContent = u.nombre;
+        select.appendChild(option);
+      });
     });
-  });
 
-// libros
-fetch('listar_libros.php')
-  .then(res => res.json())
-  .then(data => {
-    const select = document.getElementById('id_libro');
+  // libros
+  fetch('listar_libros.php')
+    .then(res => res.json())
+    .then(data => {
+      const select = document.getElementById('id_libro');
 
-    data.forEach(l => {
-      const option = document.createElement('option');
-      option.value = l.id_libro;
-      option.textContent = l.titulo;
-      select.appendChild(option);
+      data.forEach(l => {
+        const option = document.createElement('option');
+        option.value = l.id_libro;
+        option.textContent = l.titulo;
+        select.appendChild(option);
+      });
     });
-  });
 
-// guardar préstamo
-function guardarPrestamo() {
+  // Cargar historial
+  function cargarHistorial() {
+    fetch('listar_prestamos.php')
+      .then(res => res.json())
+      .then(data => {
+        const tabla = document.getElementById('historial');
+        tabla.innerHTML = "";
+
+        data.forEach(p => {
+          const fila = document.createElement('tr');
+
+          fila.innerHTML = `
+          <td>${p.nombre}</td>
+          <td>${p.titulo}</td>
+          <td>${p.fecha}</td>
+        `;
+
+          tabla.appendChild(fila);
+        });
+      });
+  }
+
+  // guardar préstamo
+  function guardarPrestamo() {
     const id_usuario = document.getElementById('id_usuario').value;
     const id_libro = document.getElementById('id_libro').value;
 
     fetch('prestamo.php', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-        body: `id_usuario=${id_usuario}&id_libro=${id_libro}`
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: `id_usuario=${id_usuario}&id_libro=${id_libro}`
     })
-    .then(res => res.text())
-    .then(data => alert(data));
-}
+      .then(res => res.text())
+      .then(data => {
+        alert(data);
+        cargarHistorial();
+      });
+  }
+
+  cargarHistorial();
 
 </script>
