@@ -1,4 +1,75 @@
-body{
-/*    background-color: var(--bs-cyan);*/
-    
+.link-custom {
+  color: #6c757d;
+  transition: 0.3s;
+}
+
+.link-custom:hover {
+  color: #0d6efd;
+  text-decoration: underline;
+}
+
+.btn-login {
+  position: relative;
+  overflow: hidden;
+}
+
+/* el "rayo" */
+.btn-login::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -75%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(255,255,255,0.5),
+    transparent
+  );
+  transform: skewX(-25deg);
+}
+
+/* animación al hover */
+.btn-login:hover::before {
+  animation: shine 0.7s ease;
+}
+
+@keyframes shine {
+  0% {
+    left: -75%;
+  }
+  100% {
+    left: 125%;
+  }
+}
+
+.glitch {
+  position: relative;
+  color: white;
+}
+
+.glitch::before,
+.glitch::after {
+  content: "Biblioteca";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+}
+
+.glitch {
+  color: #222;
+  opacity: 0;
+  transform: translateY(10px);
+  animation: appear 0.8s ease forwards;
+  text-shadow: none;
+  font-weight: 500;
+}
+
+@keyframes appear {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
