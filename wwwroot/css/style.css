@@ -73,3 +73,23 @@
     transform: translateY(0);
   }
 }
+
+a.text-dark {
+  transition: 0.2s;
+}
+
+a.text-dark:hover {
+  color: #555 !important;
+}
+
+aside .nav-link {
+  color: #000 !important;
+  padding: 8px 10px;
+  border-radius: 6px;
+  transition: 0.2s;
+}
+
+aside .nav-link:hover {
+  background-color: rgba(0,0,0,0.05);
+  color: #000 !important;
+}

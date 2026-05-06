@@ -17,6 +17,7 @@ if (!isset($_SESSION['id_usuario'])) {
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Dashboard</title>
   <link href="./wwwroot/css/bootstrap.min.css" rel="stylesheet">
+  <link href="wwwroot/css/style.css" rel="stylesheet">
   <link rel="stylesheet" href="./wwwroot/css/bootstrap-icons.min.css">
   <script src="./wwwroot/js/jquery-4.0.0.min.js"></script>
   <script src="./wwwroot/js/script.js"></script>
@@ -25,10 +26,10 @@ if (!isset($_SESSION['id_usuario'])) {
 <body>
 
 <header>
-  <div class="px-3 py-2 text-bg-primary border-bottom">
+  <div class="px-3 py-2 bg-dark border-bottom">
     <div class="container d-flex justify-content-between">
       <h5 class="text-white">Sistema Biblioteca</h5>
-      <a class="text-white" href="logout.php">Salir</a>
+      <a class="btn btn-outline-light btn-sm" href="logout.php">Salir</a>
     </div>
   </div>
 </header>
