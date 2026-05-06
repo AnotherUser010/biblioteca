@@ -46,25 +46,36 @@
 
 .glitch {
   position: relative;
-  color: white;
+  display: inline-block;
+  color: #222;
+  font-weight: 500;
+  animation: appear 0.8s ease forwards;
+  opacity: 0;
+  transform: translateY(10px);
 }
 
 .glitch::before,
 .glitch::after {
-  content: "Biblioteca";
+  content: attr(data-text);
   position: absolute;
-  left: 0;
   top: 0;
+  left: 0;
   width: 100%;
+  overflow: hidden;
 }
 
-.glitch {
-  color: #222;
-  opacity: 0;
-  transform: translateY(10px);
-  animation: appear 0.8s ease forwards;
-  text-shadow: none;
-  font-weight: 500;
+/* capa roja */
+.glitch::before {
+  color: #ff004c;
+  transform: translate(2px, 0);
+  clip-path: inset(0 0 50% 0);
+}
+
+/* capa azul */
+.glitch::after {
+  color: #00d9ff;
+  transform: translate(-2px, 0);
+  clip-path: inset(50% 0 0 0);
 }
 
 @keyframes appear {

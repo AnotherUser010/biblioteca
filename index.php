@@ -12,9 +12,9 @@ if (isset($_SESSION['id_usuario'])) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Biblioteca</title>
+  <title>Inicio de sesión - Biblioteca</title>
   <link href="./wwwroot/css/bootstrap.min.css" rel="stylesheet">
-  <link href="wwwroot/css/style.css" rel="stylesheet">
+  <link href="./wwwroot/css/style.css" rel="stylesheet">
   <link rel="stylesheet" href="./wwwroot/css/bootstrap-icons.min.css">
   <script src="./wwwroot/js/jquery-4.0.0.min.js"></script>
   <script src="./wwwroot/js/script.js"></script>
@@ -27,7 +27,7 @@ if (isset($_SESSION['id_usuario'])) {
         <div class="col-md-7 col-lg-5">
           <div class="shadow mt-5 p-5 bg-white rounded-3 border">
             <div class="w-100 text-center">
-              <h1 class="fst-italic display-5 mb-2 glitch"> Biblioteca</h1>
+              <h1 class="glitch" data-text="Biblioteca">Biblioteca</h1>
               <h2 class="fst-italic display-6"> Inciar sesión</h2>
               <p class="text-muted">Use sus credenciales para iniciar sesión</p>
             </div>
@@ -48,7 +48,8 @@ if (isset($_SESSION['id_usuario'])) {
                 </div>
                 <button class="btn btn-outline-dark btn-login" onclick="login();">
                 <i class="bi bi-box-arrow-in-right me-2"></i>  
-                Iniciar sesión</button>
+                Iniciar sesión
+              </button>
 
               </div>
             </div>

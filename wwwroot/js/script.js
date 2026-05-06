@@ -46,31 +46,29 @@ function registroUsuarios(){
 }
 
 function login(){
-	
-	let email = $("#email");
-	let password = $("#pwd");
-	 // Recopilar datos de un formulario para enviarlos a un servidor.
+
+	let email = $("#email").val();
+	let password = $("#pwd").val();
+
+	if (!email || !password) {
+		alert("Completa todos los campos");
+		return;
+	}
+
 	let formData = new FormData();
-	
-	
-	formData.append("email", email.val());
-	formData.append("pwd", password.val());
-	$.ajax({url: "login.php",
+	formData.append("email", email);
+	formData.append("pwd", password);
+
+	$.ajax({
+		url: "login.php",
 		data: formData,
 		processData: false,
 		contentType: false,
 		type: "POST",
-		cache: false,		
 		success: function(result){
-			
 			$('#main').html(result);
-		    //alert("El registro de ha completado correctamente!");
-		},
-		error: function (xhr, status) {
-
 		}
-	       });
-
+	});
 }
 
 function guardarAutor() {
