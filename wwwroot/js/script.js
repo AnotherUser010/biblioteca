@@ -73,21 +73,25 @@ function login(){
 
 }
 
-function guardarAutor(){
-  let nombre = $("#nombre").val();
+function guardarAutor() {
+  let nombre = document.getElementById("nombre").value.trim();
 
-  let formData = new FormData();
-  formData.append("nombre", nombre);
+  if (nombre === "") {
+    alert("Escribe un nombre de autor");
+    return;
+  }
 
-  $.ajax({
-    url: "autor.php",
-    data: formData,
-    processData: false,
-    contentType: false,
-    type: "POST",
-    success: function(res){
-      alert(res);
-    }
+  fetch("autor.php", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    body: `nombre=${nombre}`
+  })
+  .then(res => res.text())
+  .then(data => {
+    alert(data);
+    document.getElementById("nombre").value = "";
   });
 }
 
@@ -104,6 +108,9 @@ function guardarLibro(){
     contentType: false,
     success: function(res){
       alert(res);
+
+      $("#titulo").val("");
+      $("#autor_id").prop("selectedIndex", 0);
     }
   });
 }
@@ -126,13 +133,7 @@ function guardarPrestamo(){
 }
 
 function cargar(pagina){
-  $("#article").load(pagina, function(response, status, xhr) {
-
-    $("#article script").each(function() {
-      eval(this.innerText);
-    });
-
-  });
+  $("#article").load(pagina);
 }
 
 

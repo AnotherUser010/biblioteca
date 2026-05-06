@@ -1,7 +1,11 @@
 <label class="form-label">Usuario</label>
-<select id="id_usuario" class="form-select mb-3"></select>
+<select id="id_usuario" class="form-select mb-3">
+  <option value="" selected disabled>-- Selecciona un usuario --</option>
+</select>
 <label class="form-label">Libro</label>
-<select id="id_libro" class="form-select mb-3"></select>
+<select id="id_libro" class="form-select mb-3">
+  <option value="" selected disabled>-- Selecciona un libro --</option>
+</select>
 
 <button onclick="guardarPrestamo()" class="btn btn-dark mt-2">Prestar</button><br><br>
 
@@ -36,6 +40,7 @@
 <script>
 
   // usuarios
+  console.log("CARGANDO USUARIOS");
   fetch('listar_usuarios.php')
     .then(res => res.json())
     .then(data => {
@@ -86,21 +91,37 @@
   }
 
   // guardar préstamo
-  function guardarPrestamo() {
-    const id_usuario = document.getElementById('id_usuario').value;
-    const id_libro = document.getElementById('id_libro').value;
+function guardarPrestamo() {
+  const id_usuario = document.getElementById('id_usuario').value;
+  const id_libro = document.getElementById('id_libro').value;
 
-    fetch('prestamo.php', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: `id_usuario=${id_usuario}&id_libro=${id_libro}`
-    })
-      .then(res => res.text())
-      .then(data => {
-        alert(data);
-        cargarHistorial();
-      });
+  if (id_usuario === "") {
+    alert("Selecciona un usuario");
+    return;
   }
+
+  if (id_libro === "") {
+    alert("Selecciona un libro");
+    return;
+  }
+
+  fetch('prestamo.php', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: `id_usuario=${id_usuario}&id_libro=${id_libro}`
+  })
+  .then(res => res.text())
+  .then(data => {
+    alert(data);
+
+    // reset selects
+    document.getElementById('id_usuario').value = "";
+    document.getElementById('id_libro').value = "";
+
+    // recargar historial
+    cargarHistorial();
+  });
+}
 
   cargarHistorial();
 

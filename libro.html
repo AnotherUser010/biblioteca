@@ -1,7 +1,9 @@
 <label class="form-label">Titulo</label>
 <input type="text" id="titulo" placeholder="Título" class="form-control mb-3">
 <label class="form-label">Autor</label>
-<select id="autor_id" class="form-select mb-3"></select>
+<select id="autor_id" class="form-select mb-3">
+  <option value="" selected disabled>-- Selecciona un autor --</option>
+</select>
 <button onclick="guardarLibro()" class="btn btn-dark mt-2">Guardar</button>
 
 <script>
@@ -21,19 +23,32 @@ fetch('listar_autores.php')
 
 // enviar libro
 function guardarLibro() {
-    const titulo = document.getElementById('titulo').value;
-    const autor_id = document.getElementById('autor_id').value;
+  let titulo = document.getElementById("titulo").value.trim();
+  let autor_id = document.getElementById("autor_id").value;
 
-    fetch('libro.php', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        body: `titulo=${titulo}&autor_id=${autor_id}`
-    })
-    .then(res => res.text())
-    .then(data => {
-        alert(data);
-    });
+  if (titulo === "") {
+    alert("Escribe un título");
+    return;
+  }
+
+  if (autor_id === "") {
+    alert("Selecciona un autor");
+    return;
+  }
+
+  fetch("libro.php", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    body: `titulo=${titulo}&autor_id=${autor_id}`
+  })
+  .then(res => res.text())
+  .then(data => {
+    alert(data);
+
+    document.getElementById("titulo").value = "";
+    document.getElementById("autor_id").value = "";
+  });
 }
 </script>
